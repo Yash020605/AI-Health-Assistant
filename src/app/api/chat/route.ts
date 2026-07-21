@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     });
 
     const result = await streamText({
-      model: google('gemini-1.5-flash-latest', {
+      model: google('gemini-2.5-flash', {
         safetySettings: [
           { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
           { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
