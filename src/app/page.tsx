@@ -14,7 +14,7 @@ const QUICK_TOPICS = [
 ];
 
 export default function Home() {
-  const { messages, input, handleInputChange, handleSubmit, setInput, error } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleQuickSelect = (label: string) => {
@@ -76,6 +76,12 @@ export default function Home() {
                 {error.message || "Failed to connect to the AI Provider. Please check your API Keys."}
               </div>
             )}
+            {isLoading && messages.length > 0 && messages[messages.length - 1].role === 'user' && (
+              <div className={styles.typingIndicator}>
+                <strong>NEXUS is thinking</strong>
+                <span></span><span></span><span></span>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
         )}
@@ -88,8 +94,9 @@ export default function Home() {
               placeholder="Ask a health-related question..." 
               value={input}
               onChange={handleInputChange}
+              disabled={isLoading}
             />
-            <button type="submit" className={styles.sendBtn} disabled={!input.trim()}>
+            <button type="submit" className={styles.sendBtn} disabled={!input.trim() || isLoading}>
               ➜
             </button>
           </form>
