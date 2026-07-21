@@ -7,14 +7,14 @@
   --text-secondary: #a1a1aa;
   
   /* Deep Mesh/Vibrant Accents */
-  --accent-purple: #7928ca;
-  --accent-pink: #ff0080;
+  --accent-purple: #00f0ff;
+  --accent-pink: #00ff9d;
   --accent-blue: #0070f3;
-  --accent-teal: #38bdf8;
+  --accent-teal: #00f0ff;
   
   /* Glows */
-  --glow-purple: rgba(121, 40, 202, 0.4);
-  --glow-pink: rgba(255, 0, 128, 0.4);
+  --glow-purple: rgba(0, 240, 255, 0.4);
+  --glow-pink: rgba(0, 255, 157, 0.4);
   --glow-blue: rgba(0, 112, 243, 0.4);
   
   /* Utilities */
@@ -59,8 +59,8 @@ body::before {
   position: fixed;
   top: -50%; left: -50%; width: 200%; height: 200%;
   background: 
-    radial-gradient(circle at 15% 50%, rgba(121, 40, 202, 0.12), transparent 30%),
-    radial-gradient(circle at 85% 30%, rgba(255, 0, 128, 0.12), transparent 30%),
+    radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 85% 30%, rgba(0, 255, 157, 0.12), transparent 30%),
     radial-gradient(circle at 50% 80%, rgba(0, 112, 243, 0.12), transparent 30%);
   z-index: -2;
   pointer-events: none;

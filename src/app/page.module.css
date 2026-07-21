@@ -34,7 +34,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
-  filter: drop-shadow(0 4px 16px rgba(255, 0, 128, 0.2));
+  filter: drop-shadow(0 4px 16px rgba(0, 240, 255, 0.2));
   animation: float 6s ease-in-out infinite;
 }
 
@@ -100,7 +100,7 @@
 .quickSelectBtn:hover {
   transform: translateY(-4px) scale(1.02);
   border-color: var(--glass-border-hover);
-  box-shadow: 0 12px 40px rgba(121, 40, 202, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 240, 255, 0.2);
 }
 
 .quickSelectBtn:hover::before {
@@ -116,6 +116,9 @@
   width: 100%;
   margin-top: 2rem;
   padding: 0 1rem;
+  position: sticky;
+  bottom: 2rem;
+  z-index: 20;
 }
 
 .inputWrapper {
@@ -174,7 +177,7 @@
 
 .sendBtn:hover:not(:disabled) {
   transform: translateY(-50%) scale(1.1) rotate(5deg);
-  box-shadow: 0 6px 20px rgba(255, 0, 128, 0.6);
+  box-shadow: 0 6px 20px rgba(0, 255, 157, 0.6);
 }
 
 .sendBtn:disabled {
@@ -224,9 +227,6 @@
   gap: 1.5rem;
   margin-top: 1rem;
   padding: 1rem 0 2rem 0;
-  overflow-y: auto;
-  max-height: 65vh;
-  scrollbar-width: thin;
 }
 
 .userMessage, .aiMessage {
@@ -247,9 +247,9 @@
 
 .userMessage {
   align-self: flex-end;
-  background: linear-gradient(135deg, rgba(121, 40, 202, 0.2), rgba(255, 0, 128, 0.1));
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(0, 255, 157, 0.1));
   backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(255, 0, 128, 0.2);
+  border: 1px solid rgba(0, 255, 157, 0.2);
   color: var(--text-primary);
   border-bottom-right-radius: 0.5rem;
 }
