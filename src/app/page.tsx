@@ -53,6 +53,11 @@ export default function Home() {
           </>
         ) : (
           <div className={styles.chatHistory}>
+            <div className={styles.chatHeader}>
+              <button type="button" onClick={() => window.location.reload()} className={styles.backBtn}>
+                ← Back to Home
+              </button>
+            </div>
             {messages.map(m => (
               <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
                 <strong>{m.role === 'user' ? 'You' : 'NEXUS'}: </strong>
