@@ -32,7 +32,7 @@ export default function Home() {
         {messages.length === 0 && !error ? (
           <>
             <div className={styles.intro}>
-              <h1 className={styles.title}>AI HEALTH INFORMATION ASSISTANT</h1>
+              <h1 className={styles.title}>NEXUS AI HEALTH INFORMATION ASSISTANT</h1>
               <p className={styles.subtitle}>
                 Your intelligent guide to health awareness, symptom explanations & preventive care.
               </p>

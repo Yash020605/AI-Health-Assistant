@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AI Health Information Assistant",
+  title: "Nexus AI Health Information Assistant",
   description: "A GenAI-powered health awareness and symptom checker.",
 };
 
