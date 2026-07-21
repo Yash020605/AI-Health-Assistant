@@ -8,9 +8,9 @@ import remarkGfm from "remark-gfm";
 
 const QUICK_TOPICS = [
   { id: 1, icon: "🔬", label: "Explain a symptom" },
-  { id: 2, icon: "🛡️", label: "Preventive care & wellness" },
-  { id: 3, icon: "🥗", label: "Nutrition & diet check" },
-  { id: 4, icon: "🏃", label: "Routine fitness advice" },
+  { id: 2, icon: "🛡️", label: "Health awareness & tips" },
+  { id: 3, icon: "🩺", label: "Preventive care suggestions" },
+  { id: 4, icon: "💬", label: "General health question" },
 ];
 
 export default function Home() {
@@ -32,9 +32,9 @@ export default function Home() {
         {messages.length === 0 ? (
           <>
             <div className={styles.intro}>
-              <h1 className={styles.title}>NEXUS Health AI</h1>
+              <h1 className={styles.title}>AI HEALTH INFORMATION ASSISTANT</h1>
               <p className={styles.subtitle}>
-                Your intelligent assistant for health awareness, symptom explanation, and preventive care.
+                Your intelligent guide to health awareness, symptom explanations & preventive care.
               </p>
             </div>
 
