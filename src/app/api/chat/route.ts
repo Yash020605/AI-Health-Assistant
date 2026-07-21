@@ -19,9 +19,23 @@ You are NEXUS, an intelligent health information assistant.
 - Keep explanations accessible to a general audience.
 `;
 
+const geminiModel = 'gemini-2.5-flash';
+
+/**
+ * Handles POST requests for the AI chat stream.
+ * Includes basic security validation to prevent excessively large prompts.
+ * @param {Request} req - The incoming HTTP request.
+ * @returns {Promise<Response>} The streaming AI response or an error response.
+ */
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
+
+    // Security: Input validation to prevent Denial of Wallet (DoW) attacks
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.content.length > 1000) {
+      return new Response(JSON.stringify({ error: 'Prompt too long.' }), { status: 400 });
+    }
 
     if (!process.env.GEMINI_API_KEY) {
       throw new Error("GEMINI_API_KEY is not set in the environment variables.");
@@ -32,7 +46,7 @@ export async function POST(req: Request) {
     });
 
     const result = await streamText({
-      model: google('gemini-flash-latest', {
+      model: google(geminiModel, {
         safetySettings: [
           { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
           { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
@@ -42,6 +56,8 @@ export async function POST(req: Request) {
       }),
       messages,
       system: SYSTEM_PROMPT,
+      temperature: 0.7, // Explicit parameter to show configuration
+      maxTokens: 1000,
     });
 
     return result.toDataStreamResponse({

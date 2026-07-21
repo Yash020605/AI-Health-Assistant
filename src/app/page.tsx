@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -13,13 +13,20 @@ const QUICK_TOPICS = [
   { id: 4, icon: "⚕️", label: "General health question" },
 ];
 
+/**
+ * Home Component - Main entry point for the AI Health Assistant.
+ * Handles the chat interface, state management, and real-time streaming.
+ */
 export default function Home() {
   const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const handleQuickSelect = (label: string) => {
+  /**
+   * Memoized handler for quick topic selection
+   */
+  const handleQuickSelect = useCallback((label: string) => {
     setInput(label + ": ");
-  };
+  }, [setInput]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -31,30 +38,36 @@ export default function Home() {
         
         {messages.length === 0 && !error ? (
           <>
-            <div className={styles.intro}>
+            <header className={styles.intro}>
               <h1 className={styles.title}>NEXUS AI HEALTH INFORMATION ASSISTANT</h1>
               <p className={styles.subtitle}>
                 Your intelligent guide to health awareness, symptom explanations & preventive care.
               </p>
-            </div>
+            </header>
 
-            <div className={styles.quickSelectGrid}>
+            <section className={styles.quickSelectGrid} aria-label="Quick Select Topics">
               {QUICK_TOPICS.map((topic) => (
                 <button 
                   key={topic.id} 
                   className={styles.quickSelectBtn}
                   onClick={() => handleQuickSelect(topic.label)}
+                  aria-label={`Select quick topic: ${topic.label}`}
                 >
                   <span>{topic.icon}</span>
                   {topic.label}
                 </button>
               ))}
-            </div>
+            </section>
           </>
         ) : (
-          <div className={styles.chatHistory}>
+          <section className={styles.chatHistory} aria-live="polite">
             <div className={styles.chatHeader}>
-              <button type="button" onClick={() => window.location.reload()} className={styles.backBtn}>
+              <button 
+                type="button" 
+                onClick={() => window.location.reload()} 
+                className={styles.backBtn}
+                aria-label="Back to home"
+              >
                 ← Back to Home
               </button>
             </div>
@@ -83,11 +96,11 @@ export default function Home() {
               </div>
             )}
             <div ref={messagesEndRef} />
-          </div>
+          </section>
         )}
 
-        <div className={styles.chatShell}>
-          <form className={styles.inputWrapper} onSubmit={handleSubmit}>
+        <footer className={styles.chatShell}>
+          <form className={styles.inputWrapper} onSubmit={handleSubmit} aria-label="Chat input form">
             <input 
               type="text" 
               className={styles.chatInput} 
@@ -95,12 +108,18 @@ export default function Home() {
               value={input}
               onChange={handleInputChange}
               disabled={isLoading}
+              aria-label="Type your health-related question"
             />
-            <button type="submit" className={styles.sendBtn} disabled={!input.trim() || isLoading}>
+            <button 
+              type="submit" 
+              className={styles.sendBtn} 
+              disabled={!input.trim() || isLoading}
+              aria-label="Send message"
+            >
               ➤
             </button>
           </form>
-        </div>
+        </footer>
       </main>
     </div>
   );

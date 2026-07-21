@@ -1,27 +1,35 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './DisclaimerBanner.module.css';
 
-export default function DisclaimerBanner() {
+/**
+ * DisclaimerBanner Component
+ * Displays a non-intrusive warning about the AI not being a doctor.
+ * Uses React.memo for rendering efficiency.
+ */
+const DisclaimerBanner = React.memo(() => {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
 
   return (
-    <div className={styles.banner}>
-      <p>
-        <strong>⚠️ Important:</strong> This application is for informational purposes only and is 
+    <div className={styles.banner} role="alert" aria-live="polite">
+      <div className={styles.content}>
+        <strong>⚠️ IMPORTANT:</strong> This application is for informational purposes only and is 
         not a replacement for professional medical advice, diagnosis or treatment. 
         Always consult a qualified healthcare professional for medical concerns.
-      </p>
+      </div>
       <button 
         className={styles.closeBtn} 
         onClick={() => setIsVisible(false)}
-        aria-label="Dismiss disclaimer"
+        aria-label="Close disclaimer"
       >
         ×
       </button>
     </div>
   );
-}
+});
+
+DisclaimerBanner.displayName = "DisclaimerBanner";
+export default DisclaimerBanner;
