@@ -14,7 +14,7 @@ const QUICK_TOPICS = [
 ];
 
 export default function Home() {
-  const { messages, input, handleInputChange, handleSubmit, setInput } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, setInput, error } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const handleQuickSelect = (label: string) => {
@@ -23,13 +23,13 @@ export default function Home() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, error]);
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         
-        {messages.length === 0 ? (
+        {messages.length === 0 && !error ? (
           <>
             <div className={styles.intro}>
               <h1 className={styles.title}>AI HEALTH INFORMATION ASSISTANT</h1>
@@ -65,6 +65,12 @@ export default function Home() {
                 )}
               </div>
             ))}
+            {error && (
+              <div className={styles.aiMessage} style={{ color: '#ff4d4f', borderColor: '#ff4d4f' }}>
+                <strong>System Error: </strong>
+                {error.message || "Failed to connect to the AI Provider. Please check your API Keys."}
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
         )}
