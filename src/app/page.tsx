@@ -7,10 +7,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const QUICK_TOPICS = [
-  { id: 1, icon: "🔬", label: "Explain a symptom" },
-  { id: 2, icon: "🛡️", label: "Health awareness & tips" },
-  { id: 3, icon: "🩺", label: "Preventive care suggestions" },
-  { id: 4, icon: "💬", label: "General health question" },
+  { id: 1, icon: "🔍", label: "Explain a symptom" },
+  { id: 2, icon: "💡", label: "Health awareness & tips" },
+  { id: 3, icon: "🛡️", label: "Preventive care suggestions" },
+  { id: 4, icon: "⚕️", label: "General health question" },
 ];
 
 export default function Home() {
@@ -60,7 +60,7 @@ export default function Home() {
             </div>
             {messages.map(m => (
               <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
-                <strong>{m.role === 'user' ? 'You' : 'NEXUS'}: </strong>
+                <strong>{m.role === 'user' ? 'You' : 'NEXUS'} </strong>
                 {m.role === 'user' ? (
                   <span>{m.content}</span>
                 ) : (
@@ -72,7 +72,7 @@ export default function Home() {
             ))}
             {error && (
               <div className={styles.aiMessage} style={{ color: '#ff4d4f', borderColor: '#ff4d4f' }}>
-                <strong>System Error: </strong>
+                <strong>System Error </strong>
                 {error.message || "Failed to connect to the AI Provider. Please check your API Keys."}
               </div>
             )}
@@ -97,7 +97,7 @@ export default function Home() {
               disabled={isLoading}
             />
             <button type="submit" className={styles.sendBtn} disabled={!input.trim() || isLoading}>
-              ➜
+              ➤
             </button>
           </form>
         </div>
