@@ -19,7 +19,7 @@ const QUICK_TOPICS = [
  */
 export default function Home() {
   // @ts-ignore - The ai-sdk types are out of sync with @ai-sdk/react in this version
-  const { messages, append, error, status } = useChat() as any;
+  const { messages, append, sendMessage, error, status } = useChat() as any;
   const [input, setInput] = useState("");
   const isLoading = status === 'streaming' || status === 'submitted';
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,11 @@ export default function Home() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
     
-    append({ role: "user", content: input });
+    if (sendMessage) {
+      sendMessage({ text: input, role: "user", content: input });
+    } else if (append) {
+      append({ role: "user", content: input });
+    }
     setInput("");
   };
 
