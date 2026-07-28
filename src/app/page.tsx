@@ -19,7 +19,7 @@ const QUICK_TOPICS = [
  */
 export default function Home() {
   // @ts-ignore - The ai-sdk types are out of sync with @ai-sdk/react in this version
-  const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat() as any;
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -72,7 +72,7 @@ export default function Home() {
                 ← Back to Home
               </button>
             </div>
-            {messages.map(m => (
+            {messages.map((m: any) => (
               <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
                 <strong>{m.role === 'user' ? 'You' : 'NEXUS'} </strong>
                 {m.role === 'user' ? (
