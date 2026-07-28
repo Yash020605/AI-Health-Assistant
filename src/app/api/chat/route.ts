@@ -19,7 +19,7 @@ You are NEXUS, an intelligent health information assistant.
 - Keep explanations accessible to a general audience.
 `;
 
-const geminiModel = 'gemini-1.5-flash';
+const geminiModel = 'gemini-3.6-flash';
 
 /**
  * Handles POST requests for the AI chat stream.
