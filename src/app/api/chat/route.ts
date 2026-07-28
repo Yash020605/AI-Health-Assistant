@@ -49,8 +49,6 @@ export async function POST(req: Request) {
       model: google(geminiModel),
       messages,
       system: SYSTEM_PROMPT,
-      temperature: 0.7, // Explicit parameter to show configuration
-      maxTokens: 1000,
     });
 
     return result.toTextStreamResponse({
