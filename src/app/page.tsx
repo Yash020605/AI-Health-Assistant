@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -19,7 +19,9 @@ const QUICK_TOPICS = [
  */
 export default function Home() {
   // @ts-ignore - The ai-sdk types are out of sync with @ai-sdk/react in this version
-  const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat() as any;
+  const { messages, append, error, status } = useChat() as any;
+  const [input, setInput] = useState("");
+  const isLoading = status === 'streaming' || status === 'submitted';
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -28,6 +30,14 @@ export default function Home() {
   const handleQuickSelect = useCallback((label: string) => {
     setInput(label + ": ");
   }, [setInput]);
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+    
+    append({ role: "user", content: input });
+    setInput("");
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -101,13 +111,13 @@ export default function Home() {
         )}
 
         <footer className={styles.chatShell}>
-          <form className={styles.inputWrapper} onSubmit={handleSubmit} aria-label="Chat input form">
+          <form className={styles.inputWrapper} onSubmit={onSubmit} aria-label="Chat input form">
             <input 
               type="text" 
               className={styles.chatInput} 
               placeholder="Ask a health-related question..." 
               value={input}
-              onChange={handleInputChange}
+              onChange={(e) => setInput(e.target.value)}
               disabled={isLoading}
               aria-label="Type your health-related question"
             />
@@ -117,7 +127,7 @@ export default function Home() {
               disabled={!input?.trim() || isLoading}
               aria-label="Send message"
             >
-              ➤
+              ↑
             </button>
           </form>
         </footer>
