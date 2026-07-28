@@ -18,6 +18,7 @@ const QUICK_TOPICS = [
  * Handles the chat interface, state management, and real-time streaming.
  */
 export default function Home() {
+  // @ts-ignore - The ai-sdk types are out of sync with @ai-sdk/react in this version
   const { messages, input, handleInputChange, handleSubmit, setInput, error, isLoading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 

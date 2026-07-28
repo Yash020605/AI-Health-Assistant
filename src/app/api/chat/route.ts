@@ -51,12 +51,7 @@ export async function POST(req: Request) {
       system: SYSTEM_PROMPT,
     });
 
-    return result.toTextStreamResponse({
-      getErrorMessage: (err: any) => {
-        console.error("Internal Stream Error:", err);
-        return typeof err === 'string' ? err : (err?.message || "Unknown stream error");
-      }
-    });
+    return result.toTextStreamResponse();
   } catch (error: any) {
     console.error("API Route Error:", error);
     return new Response(
