@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       maxTokens: 1000,
     });
 
-    return result.toDataStreamResponse({
+    return result.toTextStreamResponse({
       getErrorMessage: (err: any) => {
         console.error("Internal Stream Error:", err);
         return typeof err === 'string' ? err : (err?.message || "Unknown stream error");
