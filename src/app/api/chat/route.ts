@@ -29,12 +29,21 @@ const geminiModel = 'gemini-3.6-flash';
  */
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    
+    // AI SDK v5 might send 'text' instead of 'content'
+    const rawMessages = body.messages || [];
+    const messages = rawMessages.map((m: any) => ({
+      ...m,
+      content: m.content || m.text || "",
+    }));
 
     // Security: Input validation to prevent Denial of Wallet (DoW) attacks
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage && lastMessage.content.length > 1000) {
-      return new Response(JSON.stringify({ error: 'Prompt too long.' }), { status: 400 });
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.content && lastMessage.content.length > 1000) {
+        return new Response(JSON.stringify({ error: 'Prompt too long.' }), { status: 400 });
+      }
     }
 
     if (!process.env.GEMINI_API_KEY) {

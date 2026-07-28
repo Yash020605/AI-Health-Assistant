@@ -90,10 +90,10 @@ export default function Home() {
               <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
                 <strong>{m.role === 'user' ? 'You' : 'NEXUS'} </strong>
                 {m.role === 'user' ? (
-                  <span>{m.content}</span>
+                  <span>{m.content || m.text}</span>
                 ) : (
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {m.content}
+                    {m.content || m.text || ""}
                   </ReactMarkdown>
                 )}
               </div>
