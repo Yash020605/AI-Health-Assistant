@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       system: SYSTEM_PROMPT,
     });
 
-    return result.toDataStreamResponse();
+    return result.toUIMessageStreamResponse();
   } catch (error: any) {
     console.error("API Route Error:", error);
     return new Response(
