@@ -31,12 +31,18 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     
-    // AI SDK v5 might send 'text' instead of 'content'
+    // AI SDK v5 might send 'text' or 'parts' instead of 'content'
     const rawMessages = body.messages || [];
-    const messages = rawMessages.map((m: any) => ({
-      ...m,
-      content: m.content || m.text || "",
-    }));
+    const messages = rawMessages.map((m: any) => {
+      let textContent = m.content || m.text || "";
+      if (!textContent && m.parts && Array.isArray(m.parts)) {
+        textContent = m.parts.map((p: any) => p.text || "").join("");
+      }
+      return {
+        ...m,
+        content: textContent,
+      };
+    });
 
     // Security: Input validation to prevent Denial of Wallet (DoW) attacks
     if (messages.length > 0) {

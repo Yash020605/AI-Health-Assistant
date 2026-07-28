@@ -86,18 +86,28 @@ export default function Home() {
                 ← Back to Home
               </button>
             </div>
-            {messages.map((m: any) => (
-              <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
-                <strong>{m.role === 'user' ? 'You' : 'NEXUS'} </strong>
-                {m.role === 'user' ? (
-                  <span>{m.content || m.text}</span>
-                ) : (
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {m.content || m.text || ""}
-                  </ReactMarkdown>
-                )}
-              </div>
-            ))}
+            {messages.map((m: any) => {
+              let displayContent = m.content || m.text || "";
+              if (!displayContent && m.parts && Array.isArray(m.parts)) {
+                displayContent = m.parts.map((p: any) => p.text || "").join("");
+              }
+              if (!displayContent) {
+                displayContent = JSON.stringify(m);
+              }
+
+              return (
+                <div key={m.id} className={m.role === 'user' ? styles.userMessage : styles.aiMessage}>
+                  <strong>{m.role === 'user' ? 'You' : 'NEXUS'} </strong>
+                  {m.role === 'user' ? (
+                    <span>{displayContent}</span>
+                  ) : (
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {displayContent}
+                    </ReactMarkdown>
+                  )}
+                </div>
+              );
+            })}
             {error && (
               <div className={styles.aiMessage} style={{ color: '#ff4d4f', borderColor: '#ff4d4f' }}>
                 <strong>System Error </strong>
