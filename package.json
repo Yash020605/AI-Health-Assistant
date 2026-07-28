@@ -10,20 +10,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "@ai-sdk/google": "latest",
+    "@ai-sdk/react": "^4.0.42",
+    "ai": "latest",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "ai": "latest",
-    "@ai-sdk/google": "latest",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

@@ -113,7 +113,7 @@ export default function Home() {
             <button 
               type="submit" 
               className={styles.sendBtn} 
-              disabled={!input.trim() || isLoading}
+              disabled={!input?.trim() || isLoading}
               aria-label="Send message"
             >
               ➤
